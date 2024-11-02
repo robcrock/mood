@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="flex items-center justify-center w-screen h-screen text-white bg-black">
       <div className="w-full max-w-[600px] mx-auto space-y-4">
