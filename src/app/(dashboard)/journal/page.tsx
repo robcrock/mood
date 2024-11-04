@@ -2,6 +2,7 @@ import EntryCard from "@/components/EntryCard";
 import { getUserByClerkId } from "../../../../utils/auth";
 import { prisma } from "../../../../utils/db";
 import NewEntryCard from "@/components/NewEntryCard";
+import Link from "next/link";
 
 const getEntries = async () => {
   const user = await getUserByClerkId();
@@ -28,7 +29,9 @@ export default async function JournalPage() {
       <div className="grid grid-cols-3 gap-4">
         <NewEntryCard />
         {entries.map((entry) => (
-          <EntryCard key={entry.id} entry={entry} />
+          <Link key={entry.id} href={`/journal/${entry.id}`}>
+            <EntryCard entry={entry} />
+          </Link>
         ))}
       </div>
     </div>
