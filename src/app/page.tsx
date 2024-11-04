@@ -1,6 +1,11 @@
+import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const user = await currentUser();
+
+  const href = user?.id ? "/journal" : "/new-user";
+
   return (
     <div className="flex items-center justify-center w-screen h-screen text-white bg-black">
       <div className="w-full max-w-[600px] mx-auto space-y-4">
@@ -10,7 +15,7 @@ export default function HomePage() {
           you have to do is be honest.
         </p>
         <div>
-          <Link href="/journal">
+          <Link href={href}>
             <button className="px-4 py-2 text-xl bg-blue-600 rounded-lg">
               get started
             </button>
