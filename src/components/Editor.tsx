@@ -17,13 +17,13 @@ type EditorProps = {
 };
 
 const Editor = ({ entry }: EditorProps) => {
-  if (!entry) {
-    return <div>Loading...</div>;
-  }
-
   const [text, setText] = useState(entry.content);
   const [currentEntry, setEntry] = useState<JournalEntry>(entry);
   const [isSaving, setIsSaving] = useState(false);
+
+  if (!entry) {
+    return <div>Loading...</div>;
+  }
 
   useAutosave({
     data: text,
@@ -44,21 +44,21 @@ const Editor = ({ entry }: EditorProps) => {
   });
 
   return (
-    <div className="relative grid w-full h-full grid-cols-3 gap-0">
-      <div className="absolute top-0 left-0 p-2">
+    <div className="relative w-full h-full overflow-hidden">
+      <div className="absolute top-0 left-0 z-10 p-2">
         {isSaving ? (
           <div>...saving</div>
         ) : (
           <div className="w-[16px] h-[16px] rounded-full bg-green-500"></div>
         )}
       </div>
-      <div className="col-span-2">
+      <div className="h-full">
         <textarea
           value={text}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setText(e.target.value)
           }
-          className="w-full h-full p-8 text-xl"
+          className="box-border w-full h-full p-8 text-xl resize-none"
         />
       </div>
     </div>
