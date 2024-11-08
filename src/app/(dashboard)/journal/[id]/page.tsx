@@ -2,20 +2,8 @@ import Editor from "@/components/Editor";
 import { getUserByClerkId } from "../../../../../utils/auth";
 import { prisma } from "../../../../../utils/db";
 
-type JournalEntry = {
-  id: string;
-  content: string;
-  userId: string;
-  // Add other entry fields as needed
-};
-
 // Update getEntry to handle Promise params
-const getEntry = async (
-  params: Promise<{ id: string }>
-): Promise<JournalEntry | null> => {
-  // Await the params to get the id
-  const { id } = await params;
-
+const getEntry = async (id: string) => {
   const user = await getUserByClerkId();
   const entry = await prisma.journalEntry.findUnique({
     where: {
@@ -24,6 +12,9 @@ const getEntry = async (
         id,
       },
     },
+    include: {
+      analysis: true,
+    },
   });
 
   return entry;
@@ -31,18 +22,20 @@ const getEntry = async (
 
 // Update PageProps to reflect that params is a Promise
 type PageProps = {
-  params: Promise<{
+  params: {
     id: string;
-  }>;
+  };
 };
 
-export default async function JournalPage({ params }: PageProps) {
-  const entry = await getEntry(params);
+export default async function JournalEditorPage({ params }: PageProps) {
+  const entry = await getEntry(params.id);
+  const { summary, subject, mood, negative, color } = entry?.analysis;
+
   const anaysisData = [
-    { name: "Summary", value: "" },
-    { name: "Subject", value: "" },
-    { name: "Mood", value: "" },
-    { name: "Negative", value: "False" },
+    { name: "Summary", value: summary },
+    { name: "Subject", value: subject },
+    { name: "Mood", value: mood },
+    { name: "Negative", value: negative ? "True" : "False" },
   ];
 
   if (!entry) {
@@ -55,7 +48,7 @@ export default async function JournalPage({ params }: PageProps) {
         <Editor entry={entry} />
       </div>
       <div className="col-span-1 border-l border-black/10">
-        <div className="px-6 py-10 bg-blue-300">
+        <div className="px-6 py-10" style={{ backgroundColor: color }}>
           <h2 className="text-2xl">Analysis</h2>
         </div>
         <div>

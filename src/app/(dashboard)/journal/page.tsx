@@ -21,8 +21,6 @@ const getEntries = async () => {
 export default async function JournalPage() {
   const entries = await getEntries();
 
-  console.log(entries);
-
   return (
     <div className="h-full p-10">
       <h2 className="mb-8 text-3xl">Journal</h2>
