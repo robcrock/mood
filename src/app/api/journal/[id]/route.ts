@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { getUserByClerkId } from "../../../../../utils/auth";
 import { prisma } from "../../../../../utils/db";
 import { analyze } from "../../../../../utils/ai";
-import { revalidatePath } from "next/cache";
 
 export async function PATCH(
   request: Request,
@@ -32,10 +31,12 @@ export async function PATCH(
         entryId: updatedEntry.id,
       },
       create: {
+        userId: user.id,
         entryId: updatedEntry.id,
         mood: analysis?.mood || "",
         subject: analysis?.subject || "",
         negative: analysis?.negative || false,
+        sentimentScore: analysis?.sentimentScore || false,
         color: analysis?.color || "",
         summary: analysis?.summary || "",
       },
@@ -43,6 +44,7 @@ export async function PATCH(
         mood: analysis?.mood || "",
         subject: analysis?.subject || "",
         negative: analysis?.negative || false,
+        sentimentScore: analysis?.sentimentScore || false,
         color: analysis?.color || "",
         summary: analysis?.summary || "",
       },
