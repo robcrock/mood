@@ -3,6 +3,7 @@
 // import { revalidatePath } from "next/cache";
 import { useRouter } from "next/navigation";
 import { createNewEntry } from "../../utils/api";
+import { Button } from "./ui/button";
 
 const NewEntry = () => {
   const router = useRouter();
@@ -12,13 +13,7 @@ const NewEntry = () => {
     router.push(`/journal/${data.id}`);
   };
 
-  return (
-    <div className="overflow-hidden bg-white rounded-lg shadow cursor-pointer">
-      <div className="px-4 py-5 sm:p-6" onClick={handleOnClick}>
-        <span className="text-3xl">New Entry</span>
-      </div>
-    </div>
-  );
+  return <Button onClick={handleOnClick}>New Entry</Button>;
 };
 
 export default NewEntry;

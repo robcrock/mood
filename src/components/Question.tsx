@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { askQuestion } from "../../utils/api";
 import Spinner from "./Spinner";
+import { Button } from "./ui/button";
 
 const Question = () => {
   const [value, setValue] = useState("");
@@ -37,13 +38,9 @@ const Question = () => {
           type="text"
           placeholder="Ask a question"
         />
-        <button
-          disabled={loading}
-          className="px-4 py-2 text-lg bg-blue-400 rounded-lg"
-          type="submit"
-        >
+        <Button disabled={loading} type="submit">
           Ask
-        </button>
+        </Button>
       </form>
       {loading && <Spinner />}
       {response && <div>{response}</div>}
