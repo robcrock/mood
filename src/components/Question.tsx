@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { askQuestion } from "../../utils/api";
 import Spinner from "./Spinner";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 const Question = () => {
   const [value, setValue] = useState("");
@@ -27,23 +29,19 @@ const Question = () => {
 
   console.log("response", response);
   return (
-    <div>
-      <form action="" onSubmit={handleSubmit}>
-        <input
+    <div className="w-full">
+      <form action="" onSubmit={handleSubmit} className="flex gap-1">
+        <Input
           disabled={loading}
-          className="px-4 py-2 mr-2 text-lg border rounded-lg border-black/20"
+          className="w-full px-4 py-2 mr-2 text-lg border rounded-lg border-black/20"
           onChange={handleChange}
           value={value}
           type="text"
           placeholder="Ask a question"
         />
-        <button
-          disabled={loading}
-          className="px-4 py-2 text-lg bg-blue-400 rounded-lg"
-          type="submit"
-        >
+        <Button disabled={loading} type="submit">
           Ask
-        </button>
+        </Button>
       </form>
       {loading && <Spinner />}
       {response && <div>{response}</div>}

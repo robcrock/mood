@@ -3,6 +3,8 @@
 // import { revalidatePath } from "next/cache";
 import { useRouter } from "next/navigation";
 import { createNewEntry } from "../../utils/api";
+import { Button } from "./ui/button";
+import { Plus } from "lucide-react";
 
 const NewEntry = () => {
   const router = useRouter();
@@ -13,11 +15,13 @@ const NewEntry = () => {
   };
 
   return (
-    <div className="overflow-hidden bg-white rounded-lg shadow cursor-pointer">
-      <div className="px-4 py-5 sm:p-6" onClick={handleOnClick}>
-        <span className="text-3xl">New Entry</span>
-      </div>
-    </div>
+    <Button
+      size="icon"
+      onClick={handleOnClick}
+      className="rounded-full shadow-md shadow-black/50"
+    >
+      <Plus />
+    </Button>
   );
 };
 

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 
@@ -16,9 +17,7 @@ export default async function HomePage() {
         </p>
         <div>
           <Link href={href}>
-            <button className="px-4 py-2 text-xl bg-blue-600 rounded-lg">
-              get started
-            </button>
+            <Button variant="secondary">Get Started</Button>
           </Link>
         </div>
       </div>
