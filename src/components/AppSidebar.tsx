@@ -43,7 +43,7 @@ const items = [
 
 export function AppSidebar() {
   return (
-    <Sidebar collapsible="none" className="h-screen w-[160px]">
+    <Sidebar collapsible="none">
       <SidebarHeader>mood</SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

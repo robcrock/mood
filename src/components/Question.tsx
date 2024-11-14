@@ -37,7 +37,7 @@ const Question = () => {
           onChange={handleChange}
           value={value}
           type="text"
-          placeholder="Ask a question"
+          placeholder="Pose a question to you Journal..."
         />
         <Button disabled={loading} type="submit">
           Ask

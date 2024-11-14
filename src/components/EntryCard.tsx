@@ -40,7 +40,6 @@ const getEntry = async (id: string) => {
 };
 
 const EntryCard = ({ entry }) => {
-  console.log("entry", entry);
   const { subject, color, summary, createdAt } = entry?.analysis;
   const date = new Date(createdAt).toDateString();
 

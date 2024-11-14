@@ -5,8 +5,12 @@ import React, { ReactNode } from "react";
 const layout = ({ children }: { children: ReactNode }) => {
   return (
     <SidebarProvider>
-      <AppSidebar />
-      <main>{children}</main>
+      <div className="flex h-screen">
+        <div className="fixed h-screen">
+          <AppSidebar />
+        </div>
+        <main className="flex-1 overflow-auto ml-[256px]">{children}</main>
+      </div>
     </SidebarProvider>
   );
 };

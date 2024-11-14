@@ -26,10 +26,12 @@ const HistoryPage = async () => {
 
   console.log(analyses);
   return (
-    <div className="w-full h-full">
-      <h1>{`Avg. Sentiment ${avg}`}</h1>
-      <div className="w-full h-full">
-        <HistoryChart data={analyses} />
+    <div className="flex flex-col h-full">
+      <div className="flex-1 w-full h-full">
+        <h1>{`Avg. Sentiment ${avg}`}</h1>
+        <div className="w-full h-full">
+          <HistoryChart data={analyses} />
+        </div>
       </div>
     </div>
   );

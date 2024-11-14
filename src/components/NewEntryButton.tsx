@@ -6,7 +6,7 @@ import { createNewEntry } from "../../utils/api";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 
-const NewEntry = () => {
+const NewEntryButton = () => {
   const router = useRouter();
 
   const handleOnClick = async () => {
@@ -25,4 +25,4 @@ const NewEntry = () => {
   );
 };
 
-export default NewEntry;
+export default NewEntryButton;
