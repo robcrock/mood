@@ -11,6 +11,9 @@ const getEntries = async () => {
     where: {
       userId: user.id,
     },
+    include: {
+      analysis: true,
+    },
     orderBy: {
       createdAt: "desc",
     },
@@ -25,16 +28,18 @@ export default async function JournalPage() {
   return (
     <div className="h-full p-10">
       <h2 className="mb-8 text-3xl">Journal</h2>
-      <div className="my-8">
+      <div className="flex justify-between gap-4 mb-8">
         <Question />
       </div>
       <div className="grid grid-cols-3 gap-4">
-        <NewEntryCard />
         {entries.map((entry) => (
           <Link key={entry.id} href={`/journal/${entry.id}`}>
             <EntryCard entry={entry} />
           </Link>
         ))}
+      </div>
+      <div className="absolute right-10 bottom-10">
+        <NewEntryCard />
       </div>
     </div>
   );

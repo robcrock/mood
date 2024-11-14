@@ -4,6 +4,7 @@
 import { useRouter } from "next/navigation";
 import { createNewEntry } from "../../utils/api";
 import { Button } from "./ui/button";
+import { Plus } from "lucide-react";
 
 const NewEntry = () => {
   const router = useRouter();
@@ -13,7 +14,15 @@ const NewEntry = () => {
     router.push(`/journal/${data.id}`);
   };
 
-  return <Button onClick={handleOnClick}>New Entry</Button>;
+  return (
+    <Button
+      size="icon"
+      onClick={handleOnClick}
+      className="rounded-full shadow-md shadow-black/50"
+    >
+      <Plus />
+    </Button>
+  );
 };
 
 export default NewEntry;

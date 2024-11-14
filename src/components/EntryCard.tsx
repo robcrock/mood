@@ -1,13 +1,67 @@
+import { NextResponse } from "next/server";
+import { getUserByClerkId } from "../../utils/auth";
+import { prisma } from "../../utils/db";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "./ui/card";
+import { cn } from "@/lib/utils";
+
+const getEntry = async (id: string) => {
+  const user = await getUserByClerkId();
+
+  const entry = await prisma.journalEntry.findUnique({
+    where: {
+      userId_id: {
+        id,
+        userId: user.id,
+      },
+    },
+  });
+
+  if (!entry) {
+    return NextResponse.json({ error: "Entry not found" }, { status: 404 });
+  }
+
+  const analysis = await prisma.analysis.findUnique({
+    where: {
+      entryId: entry.id,
+    },
+  });
+
+  console.log("entry", entry);
+  console.log("analysis", analysis);
+
+  return { ...entry, analysis };
+};
+
 const EntryCard = ({ entry }) => {
-  const date = new Date(entry.createdAt).toDateString();
+  console.log("entry", entry);
+  const { subject, color, summary, createdAt } = entry?.analysis;
+  const date = new Date(createdAt).toDateString();
+
   return (
-    <div className="overflow-hidden bg-white divide-y divide-gray-200 rounded-lg shadow">
-      <div className="px-4 py-5">{date}</div>
-      {/* <div className="px-4 py-5">{entry.analysis.summary}</div>
-      <div className="px-4 py-4">{entry.analysis.mood}</div> */}
-      <div className="px-4 py-5">summary</div>
-      <div className="px-4 py-4">mood</div>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          <div className="flex justify-between">
+            <span>{subject}</span>
+            <div
+              className="w-4 h-4 rounded-full"
+              style={{ backgroundColor: color }}
+            />
+          </div>
+        </CardTitle>
+        <CardDescription>{date}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>{summary}</p>
+      </CardContent>
+    </Card>
   );
 };
 
